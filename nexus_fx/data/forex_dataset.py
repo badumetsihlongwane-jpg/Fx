@@ -171,8 +171,8 @@ class ForexDataset(Dataset):
         tf_map = {
             '5m': '5min',
             '15m': '15min',
-            '1H': '1H',
-            '4H': '4H',
+            '1H': '1h',
+            '4H': '4h',
             '1D': '1D',
             '1W': '1W',
         }
@@ -297,12 +297,18 @@ class ForexDataset(Dataset):
             '1H': 12,
             '4H': 48,
             '1D': 288,
+            '1W': 288 * 5,
         }
         
         base_ratio = ratios.get(self.base_timeframe, 1)
         tf_ratio = ratios.get(timeframe, 1)
         
-        expected = max(1, self.sequence_length // (tf_ratio // base_ratio))
+        # Calculate expected length based on ratio
+        if tf_ratio >= base_ratio:
+            expected = max(1, self.sequence_length // (tf_ratio // base_ratio))
+        else:
+            expected = self.sequence_length
+        
         return expected
     
     def _pad_or_truncate(self, array: np.ndarray, target_length: int) -> np.ndarray:

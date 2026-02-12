@@ -40,7 +40,7 @@ config = nfx.NexusFXConfig(
     # Training parameters
     batch_size=32,
     learning_rate=1e-4,
-    num_epochs=10,  # Start with fewer epochs for testing
+    num_epochs=10,  # Start with fewer epochs for testing (increase to 100+ for production)
     sequence_length=512,  # 512 5-minute candles
     
     # Device

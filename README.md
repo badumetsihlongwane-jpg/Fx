@@ -10,6 +10,7 @@ NEXUS-FX implements the core insight from the HOPE/NSAM paper: treat the entire 
 - [Architecture](#architecture)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+- [🚀 Google Colab / Kaggle Usage](#google-colab--kaggle-usage)
 - [Data Requirements](#data-requirements)
 - [Components](#components)
 - [Training](#training)
@@ -156,6 +157,43 @@ outputs = model(
 
 print(outputs.keys())  # direction_logits, volatility, regime_logits, confidence
 ```
+
+## 🚀 Google Colab / Kaggle Usage
+
+For easy use in notebook environments, we provide a **single-file consolidated version**:
+
+### Quick Setup
+
+1. **Download the consolidated file**: `nexus_fx_consolidated.py` (159 KB)
+2. **Upload to your notebook environment**
+3. **Install dependencies**:
+   ```python
+   !pip install torch numpy pandas scikit-learn tqdm
+   ```
+4. **Import and use**:
+   ```python
+   import nexus_fx_consolidated as nfx
+   
+   # Create model
+   config = nfx.NexusFXConfig()
+   model = nfx.NEXUSFX(config)
+   
+   # Create dataset (uses synthetic data by default)
+   dataset = nfx.ForexDataset()
+   
+   # Create trainer
+   trainer = nfx.NexusFXTrainer(model, config)
+   ```
+
+### Complete Example
+
+See `colab_quickstart.py` for a full working example including:
+- Configuration setup
+- Dataset creation
+- Model training
+- Making predictions
+
+For detailed documentation, see `CONSOLIDATED_README.md`.
 
 ## Data Requirements
 

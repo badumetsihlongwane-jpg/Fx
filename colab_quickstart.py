@@ -90,13 +90,17 @@ num_params = sum(p.numel() for p in model.parameters())
 print(f"Model created with {num_params:,} parameters")
 
 # ============================================================================
-# STEP 6: Create Optimizer
+# STEP 6: Create Optimizer (Optional - for reference)
 # ============================================================================
+# NOTE: The NexusFXTrainer creates its own optimizer internally based on config.
+# This section is just for demonstration of available optimizers.
+# The actual optimizer used during training is trainer.optimizer
+
 # Option A: Delta Gradient Descent (custom optimizer)
-optimizer = nfx.DeltaGradientDescent(
-    model.parameters(),
-    lr=config.learning_rate,
-)
+# optimizer = nfx.DeltaGradientDescent(
+#     model.parameters(),
+#     lr=config.learning_rate,
+# )
 
 # Option B: Multi-Scale Momentum (alternative)
 # optimizer = nfx.MultiScaleMomentumMuon(
@@ -104,7 +108,8 @@ optimizer = nfx.DeltaGradientDescent(
 #     lr=config.learning_rate,
 # )
 
-print(f"Optimizer: {optimizer.__class__.__name__}")
+print(f"Optimizer will be created by trainer based on config")
+print(f"Config specifies: {config.optimizer_type}")
 
 # ============================================================================
 # STEP 7: Create Trainer
@@ -126,9 +131,8 @@ print("Trainer initialized")
 print("\nStarting training...")
 print("=" * 70)
 
-# Train (uses config.num_epochs)
-# To change the number of epochs, modify config.num_epochs before creating trainer
-# config.num_epochs = 10  # Example: train for 10 epochs
+# Train (uses config.num_epochs which was set to 10 on line 43)
+# Note: The trainer uses the optimizer it created internally
 trainer.train()
 
 # ============================================================================
@@ -138,7 +142,7 @@ trainer.train()
 checkpoint_path = 'nexus_fx_checkpoint.pt'
 torch.save({
     'model_state_dict': model.state_dict(),
-    'optimizer_state_dict': optimizer.state_dict(),
+    'optimizer_state_dict': trainer.optimizer.state_dict(),  # Use trainer's optimizer
     'config': config,
 }, checkpoint_path)
 

@@ -162,7 +162,7 @@ Current version: **1.0.0**
 ## Support
 
 For issues or questions:
-- Check the main repository: https://github.com/your-repo/Fx
+- Check the main repository: https://github.com/badumetsihlongwane-jpg/Fx
 - Review the docstrings: `help(nfx.NEXUSFX)`
 - Get quick start code: `print(nfx.quick_start_example())`
 

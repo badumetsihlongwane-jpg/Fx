@@ -21,7 +21,7 @@ To use this file:
     2. Import: `import nexus_fx_consolidated as nfx`
     3. Create model: `model = nfx.NEXUSFX(nfx.NexusFXConfig())`
 
-Original repository: https://github.com/your-repo/Fx
+Original repository: https://github.com/badumetsihlongwane-jpg/Fx
 
 ═══════════════════════════════════════════════════════════════════════════════
 """

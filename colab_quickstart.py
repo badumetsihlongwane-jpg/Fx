@@ -40,7 +40,7 @@ config = nfx.NexusFXConfig(
     # Training parameters
     batch_size=32,
     learning_rate=1e-4,
-    num_epochs=100,
+    num_epochs=10,  # Start with fewer epochs for testing
     sequence_length=512,  # 512 5-minute candles
     
     # Device
@@ -109,12 +109,12 @@ print(f"Optimizer: {optimizer.__class__.__name__}")
 # ============================================================================
 # STEP 7: Create Trainer
 # ============================================================================
+# Note: NexusFXTrainer creates the optimizer internally based on config
 trainer = nfx.NexusFXTrainer(
     model=model,
     config=config,
     train_loader=train_loader,
     val_loader=None,  # You can add validation loader
-    optimizer=optimizer,
     device=config.device,
 )
 
@@ -126,8 +126,10 @@ print("Trainer initialized")
 print("\nStarting training...")
 print("=" * 70)
 
-# Train for a few epochs
-trainer.train(num_epochs=10)  # Start with fewer epochs for testing
+# Train (uses config.num_epochs)
+# To change the number of epochs, modify config.num_epochs before creating trainer
+# config.num_epochs = 10  # Example: train for 10 epochs
+trainer.train()
 
 # ============================================================================
 # STEP 9: Save the Model
